@@ -1,5 +1,5 @@
 <template>
-    <div id="profile-container" class="tab active">
+    <div id="profile-container" class="tab-active">
         <div id="profile">
             <div class="avatar">
                 <img src="../assets/me.png" id="picture" alt="My picture">
@@ -24,7 +24,7 @@ export default {
  name: "Profile",
  props: {
      name: String,
-     birthdate: Date,
+     birthdate: String,
      faculty: String,
      gpa: Number
  }

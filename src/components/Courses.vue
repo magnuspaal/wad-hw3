@@ -11,7 +11,15 @@
             </tr>
             </thead>
             <tbody>
-            <TableRow id=1 course="Test" semester=1 grade=69 />
+            <TableRow v-for="(row, i) in courses"
+                      :id="i"
+                      :course="row.title"
+                      :semester="row.semester"
+                      :grade="row.grade"
+                      :key="i"
+            >
+
+            </TableRow>
             </tbody>
         </table>
         <br>
@@ -31,11 +39,22 @@
 
 <script>
 import TableRow from "./TableRow"
+import Course from '../models/Course'
 
 export default {
+
     name: "Courses",
     components: {TableRow},
-    props: {}
+
+    data: () => {
+        return {
+            courses: [
+                new Course("Agile software development", 1, 82),
+                new Course("System modeling", 1, 85),
+                new Course("Object-oriented programming", 2, 99),
+                new Course("Estonian language level A1", 2, 65)]
+        }
+    },
 }
 </script>
 

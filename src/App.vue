@@ -6,13 +6,20 @@
         <section id="container">
             <section id="main">
                 <div class="content">
-                    <!--<Profile/>-->
-                    <!--<Courses/>-->
+                    <Profile class="tab" id="profile-container" v-bind:class="{active: !coursesTabActive}"
+                             :name="`${Profile.firstname} ${Profile.lastname}`"
+                             :birthdate="Profile.birthdate"
+                             :faculty="Profile.faculty"
+                             :gpa="Profile.gpa"/>
+
+                    <Courses class="tab" id="courses-container" v-bind:class="{active: coursesTabActive}"/>
                 </div>
+
                 <div class="controls">
-                    <button id="profile-button" class="pill active">Profile</button>
-                    <button id="courses-button" class="pill">Courses</button>
+                    <button @click="changeTab(false)" id="profile-button" class="pill" v-bind:class="{active: !coursesTabActive}">Profile</button>
+                    <button @click="changeTab(true)" id="courses-button" class="pill"  v-bind:class="{active: coursesTabActive}">Courses</button>
                 </div>
+
             </section>
         </section>
         <footer>
@@ -29,14 +36,30 @@
 </template>
 
 <script>
-    //import Profile from "./components/Profile";
-    //import Courses from "./components/Courses";
+    import Profile from "./components/Profile";
+    import Courses from "./components/Courses";
+    import User from './models/User'
 
     export default {
         name: 'app',
+        methods: {
+            changeTab: function (courseSelected) {
+                this.coursesTabActive = courseSelected
+            }
+        },
+        created: function () {
+            console.log(this.Profile)
+        },
+        data: () => {
+
+            return {
+                Profile: new User("John", "Doe", "11/10/1990", "Software Engineering", 1),
+                coursesTabActive: false,
+            }
+        },
         components: {
-            //Profile,
-            //Courses
+            Profile,
+            Courses
         }
     }
 </script>
@@ -228,4 +251,5 @@
         padding: 10px 20px;
         min-width: 135px;
     }
+
 </style>
