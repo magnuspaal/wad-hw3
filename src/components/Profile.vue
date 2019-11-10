@@ -5,11 +5,7 @@
                 <img src="../assets/me.png" id="picture" alt="My picture">
             </div>
             <div class="info">
-                <ul>
-                    <li id="name">{{name}}</li>
-                    <li id="birthdate">{{birthdate}}</li>
-                    <li id="faculty">{{faculty}}</li>
-                </ul>
+                <Info :name="name" :birthdate="birthdate" :faculty="faculty"/>
             </div>
             <div id="gpa">
                 <strong>{{gpa}}</strong>
@@ -20,7 +16,7 @@
 </template>
 
 <script>
-import Courses from './Courses'
+import Info from './Info'
 
 export default {
     name: "Profile",
@@ -29,6 +25,9 @@ export default {
         birthdate: String,
         faculty: String,
         gpa: Number
+    },
+    components: {
+        Info
     }
 }
 </script>
