@@ -16,9 +16,7 @@
                       :course="row.title"
                       :semester="row.semester"
                       :grade="row.grade"
-                      :key="i"
-            >
-
+                      :key="i">
             </TableRow>
             </tbody>
         </table>
@@ -27,10 +25,10 @@
         <div>
             <button id="add-course-button" class="blue-button">+</button>
             <span id="add-course">
-                <input class="input" type="text" placeholder="Course title" id="title">
-                <input class="input" type="number" min="1" max="8" placeholder="Semester" id="semester">
-                <input class="input" type="number" min="0" max="100" placeholder="Grade" id="grade">
-                <button class="green-button" id="save-course">Save</button>
+                <input class="input" type="text" id="title" placeholder="Title" v-model="title"/>
+                <input class="input" type="number" min="1" max="8" placeholder="Semester" id="semester" v-model="semester"/>
+                <input class="input" type="number" min="0" max="100" placeholder="Grade" id="grade" v-model="grade"/>
+                <button class="green-button" id="save-course" @click="addCourse">Save</button>
                 <button class="grey-button" id="cancel-course">Cancel</button>
             </span>
         </div>
@@ -40,21 +38,27 @@
 <script>
 import TableRow from "./TableRow"
 import Course from '../models/Course'
+import Profile from './Profile'
 
 export default {
-
     name: "Courses",
     components: {TableRow},
-
+    props: {
+        courses: Array
+    },
     data: () => {
         return {
-            courses: [
-                new Course("Agile software development", 1, 82),
-                new Course("System modeling", 1, 85),
-                new Course("Object-oriented programming", 2, 99),
-                new Course("Estonian language level A1", 2, 65)]
+            title: "",
+            semester: "",
+            grade: ""
         }
     },
+    methods: {
+        addCourse: function() {
+            let course = new Course(this.title, parseInt(this.semester), parseInt(this.grade));
+            this.$emit("newCourse", course);
+        }
+    }
 }
 </script>
 

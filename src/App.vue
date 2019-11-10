@@ -7,12 +7,12 @@
             <section id="main">
                 <div class="content">
                     <Profile class="tab" id="profile-container" v-bind:class="{active: !coursesTabActive}"
-                             :name="`${Profile.firstname} ${Profile.lastname}`"
-                             :birthdate="Profile.birthdate"
-                             :faculty="Profile.faculty"
-                             :gpa="Profile.gpa"/>
+                             :name="`${profile.firstname} ${profile.lastname}`"
+                             :birthdate="profile.birthdate"
+                             :faculty="profile.faculty"
+                             :gpa="profile.gpa"/>
 
-                    <Courses class="tab" id="courses-container" v-bind:class="{active: coursesTabActive}"/>
+                    <Courses class="tab" id="courses-container" :courses="courses" @newCourse="newCourse" v-bind:class="{active: coursesTabActive}"/>
                 </div>
 
                 <div class="controls">
@@ -39,22 +39,42 @@
     import Profile from "./components/Profile";
     import Courses from "./components/Courses";
     import User from './models/User'
+    import Course from './models/Course'
 
     export default {
         name: 'app',
         methods: {
             changeTab: function (courseSelected) {
                 this.coursesTabActive = courseSelected
+            },
+            getGPA: function () {
+                let sum = 0;
+                let i = 0;
+                this.courses.forEach(function (item, index) {
+                    sum += item.grade;
+                    i += 1;
+                });
+                this.profile = new User("John", "Doe", "11/10/1990", "Software Engineering", sum / i)
+            },
+            newCourse: function (course) {
+                this.courses.push(course);
+                this.getGPA()
             }
         },
         created: function () {
-            console.log(this.Profile)
+            console.log(this.profile);
+            this.getGPA()
         },
         data: () => {
-
             return {
-                Profile: new User("John", "Doe", "11/10/1990", "Software Engineering", 1),
-                coursesTabActive: false,
+                profile: new User("John", "Doe", "11/10/1990", "Software Engineering", 1),
+                courses: [
+                    new Course("Agile Software Development", 1, 82),
+                    new Course("System modeling", 1, 85),
+                    new Course("Object Oriented Programming", 2, 99),
+                    new Course("Estonian Language Level A2", 2, 65)
+                ],
+                coursesTabActive: false
             }
         },
         components: {

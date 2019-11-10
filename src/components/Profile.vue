@@ -20,14 +20,16 @@
 </template>
 
 <script>
+import Courses from './Courses'
+
 export default {
- name: "Profile",
- props: {
-     name: String,
-     birthdate: String,
-     faculty: String,
-     gpa: Number
- }
+    name: "Profile",
+    props: {
+        name: String,
+        birthdate: String,
+        faculty: String,
+        gpa: Number
+    }
 }
 </script>
 
