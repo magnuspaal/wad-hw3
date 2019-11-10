@@ -23,13 +23,13 @@
         <br>
         <br>
         <div>
-            <button id="add-course-button" class="blue-button">+</button>
-            <span id="add-course">
+            <button id="add-course-button" @click="changeAddCourse(!changeAdd)" class="blue-button">+</button>
+            <span id="add-course" v-if="changeAdd == false">
                 <input class="input" type="text" id="title" placeholder="Title" v-model="title"/>
                 <input class="input" type="number" min="1" max="8" placeholder="Semester" id="semester" v-model="semester"/>
                 <input class="input" type="number" min="0" max="100" placeholder="Grade" id="grade" v-model="grade"/>
                 <button class="green-button" id="save-course" @click="addCourse">Save</button>
-                <button class="grey-button" id="cancel-course">Cancel</button>
+                <button class="grey-button" id="cancel-course" @click="changeAddCourse(!changeAdd), clear()">Cancel</button>
             </span>
         </div>
     </div>
@@ -50,14 +50,23 @@ export default {
         return {
             title: "",
             semester: "",
-            grade: ""
+            grade: "",
+            changeAdd: true
         }
     },
     methods: {
-        addCourse: function() {
+        addCourse: function () {
             let course = new Course(this.title, parseInt(this.semester), parseInt(this.grade));
             this.$emit("newCourse", course);
-        }
+        },
+        changeAddCourse: function (state) {
+            this.changeAdd = state
+        },
+        clear: function () {
+            this.semester = ''
+            this.title = ''
+            this.grade = ''
+        },
     }
 }
 </script>

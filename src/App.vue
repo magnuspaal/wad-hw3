@@ -14,12 +14,10 @@
 
                     <Courses class="tab" id="courses-container" :courses="courses" @newCourse="newCourse" v-bind:class="{active: coursesTabActive}"/>
                 </div>
-
                 <div class="controls">
                     <button @click="changeTab(false)" id="profile-button" class="pill" v-bind:class="{active: !coursesTabActive}">Profile</button>
                     <button @click="changeTab(true)" id="courses-button" class="pill"  v-bind:class="{active: coursesTabActive}">Courses</button>
                 </div>
-
             </section>
         </section>
         <footer>
@@ -47,6 +45,7 @@
             changeTab: function (courseSelected) {
                 this.coursesTabActive = courseSelected
             },
+
             getGPA: function () {
                 let sum = 0;
                 let i = 0;
@@ -74,7 +73,7 @@
                     new Course("Object Oriented Programming", 2, 99),
                     new Course("Estonian Language Level A2", 2, 65)
                 ],
-                coursesTabActive: false
+                coursesTabActive: false,
             }
         },
         components: {
@@ -154,6 +153,7 @@
         border-bottom: 1px dashed #a7a7a7;
         padding-bottom: 10px;
         margin-bottom: 10px;
+        height: 190px;
     }
 
     #profile div:not(.clear-fix) {
